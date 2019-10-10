@@ -39,5 +39,24 @@ Following command line parameters are available:
 
 Features than can be selectively compiled into bjoern are appropriately indicated in the argument description. If a feature is not available its parameter description is followed by `"Ignored since bjoern is not compiled with this feature"`.
 
+## Caveat
+
+Note that bjoern-cli fetches bjoern from github instead of PyPI. This is necessary at this time because the version of bjoern with Statsd support is not tagged and pulling from github remains the only way to install it.
+This also means that bjoern will be compiled when you install `bjoern-cli` and you are expected to setup proper feature flags in the installation environment.
+If you are installing bjoern-cli in a docker container then adding the following snippet to the Dockerfile should enable statsd and tags support.
+
+```dockerfile
+ENV BJOERN_WANT_STATSD=true BJOERN_WANT_STATSD_TAGS=true
+```
+
+If you are in a shell then simply run
+
+```shell script
+BJOERN_WANT_STATSD=true BJOERN_WANT_STATSD_TAGS=true pip install bjoern-cli
+```
+
+You can consult [setup.py][] to know the version of bjoern that will be installed.
+
 
 [bjoern]: https://github.com/jonashaag/bjoern
+[setup.py]: ./setup.py
